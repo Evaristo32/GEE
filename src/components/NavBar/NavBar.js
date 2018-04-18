@@ -1,13 +1,17 @@
 import React from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import MenuAluno from '../Aluno/MenuAluno';
 
-export default class Example extends React.Component {
+export default class MenurNavbar extends React.Component {
     constructor(props) {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
+        this.toggleAluno = this.toggleAluno.bind(this);
+
         this.state = {
-            collapsed: true
+            collapsed: true,
+            collapsedAluno: true
         };
     }
 
@@ -16,6 +20,13 @@ export default class Example extends React.Component {
             collapsed: !this.state.collapsed
         });
     }
+
+    toggleAluno() {
+        this.setState({
+            collapsedAluno: !this.state.collapsedAluno
+        });
+    }
+
     render() {
         return (
             <div>
@@ -25,7 +36,14 @@ export default class Example extends React.Component {
                     <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar>
                             <NavItem>
-                                <NavLink href="/alunos">Alunos</NavLink>
+                                <NavLink onClick={this.toggleAluno}>Alunos</NavLink>
+                                <Collapse isOpen={!this.state.collapsedAluno} navbar>
+                                    <Nav navbar>
+                                        <NavItem>
+                                            <MenuAluno/>
+                                        </NavItem>
+                                    </Nav>
+                                </Collapse>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/mestres">Mestres</NavLink>
